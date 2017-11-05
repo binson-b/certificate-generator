@@ -10,4 +10,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('certificate.urls', namespace='certificate')),
+    url(r'^', include('announcements.urls', namespace='announcements')),
 )

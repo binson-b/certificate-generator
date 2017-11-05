@@ -7,7 +7,7 @@ https://docs.djangoproject.com/en/1.6/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
-from local import DBNAME, DBUSER, DBPASS
+#from local import DBNAME, DBUSER, DBPASS
 from os.path import *
 PROJDIR = abspath(dirname(__file__))
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -33,7 +33,19 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     join(PROJDIR, '../certificate/templates'),
+    join(PROJDIR, '../announcements/templates'),
+    join(PROJDIR, '../announcements/templatestags'),
 ) 
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.contrib.messages.context_processors.messages",
+    "announcements.context_processors.site_wide_announcements",
+)
 
 # Application definition
 
@@ -47,6 +59,7 @@ INSTALLED_APPS = (
     #'south',
     'certificate',
     #'csvimport.app.CSVImportConf',
+    'announcements',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -68,11 +81,11 @@ WSGI_APPLICATION = 'fossee_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME' : DBNAME,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME' : 'certificate.db.sqlite3'
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'USER' : DBUSER,
-        'PASSWORD': DBPASS,
+        #'USER' : DBUSER,
+        #'PASSWORD': DBPASS,
     }
 }
 
